@@ -9,22 +9,6 @@ Aplikasi web manajemen perpustakaan sederhana menggunakan Laravel dengan fitur p
 
 ---
 
-## 📋 Daftar Isi
-
-- [Fitur Aplikasi](#-fitur-aplikasi)
-- [Teknologi](#-teknologi-yang-digunakan)
-- [Persyaratan Sistem](#-persyaratan-sistem)
-- [Cara Install](#-cara-install)
-- [Konfigurasi Database](#-konfigurasi-database)
-- [Migrasi & Seeder](#-migrasi--seeder)
-- [Menjalankan Aplikasi](#-menjalankan-aplikasi)
-- [Akun Demo](#-akun-demo)
-- [Struktur Database](#-struktur-database)
-- [Troubleshooting](#-troubleshooting)
-- [Dokumentasi Fitur](#-dokumentasi-fitur)
-
----
-
 ## ✨ Fitur Aplikasi
 
 ### 👨‍💼 Fitur Admin
@@ -102,9 +86,9 @@ Pastikan sistem Anda sudah memiliki:
 
 ### 1️⃣ Clone atau Download Project
 
-**Opsi A: Clone Repository (jika ada)**
+**Opsi A: Clone Repository**
 ```bash
-git clone https://github.com/username/perpustakaan-mini.git
+git clone https://github.com/sifafasba/perpustakaan-mini.git
 cd perpustakaan-mini
 ```
 
@@ -151,7 +135,7 @@ mysql -u root -p
 Jalankan perintah SQL:
 
 ```sql
-CREATE DATABASE perpustakaan_db;
+CREATE DATABASE perpustakaan-mini;
 exit;
 ```
 
@@ -169,7 +153,7 @@ APP_URL=http://localhost:8000
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=perpustakaan_db
+DB_DATABASE=perpustakaan-mini
 DB_USERNAME=root
 DB_PASSWORD=
 ```
