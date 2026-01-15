@@ -39,6 +39,32 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
+    public function showRegister()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'user', // Default role user
+        ]);
+
+        // Auto login setelah register
+        Auth::login($user);
+
+        return redirect('/dashboard')->with('success', 'Registrasi berhasil! Selamat datang, ' . $user->name);
+    }
+
     public function showProfile()
     {
         return view('auth.profile');

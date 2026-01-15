@@ -6,7 +6,7 @@
     <title>Login - Perpustakaan Mini</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background: linear-gradient(135deg, #f55200 15%, #5e3d01 100%); min-height: 100vh; }
+        body { background: linear-gradient(135deg, #ff5e00 25%, #805300 100%); min-height: 100vh; }
         .login-card { box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
     </style>
 </head>
@@ -55,7 +55,13 @@
                             <button type="submit" class="btn btn-warning w-100 py-2">Masuk</button>
                         </form>
 
-                        <div class="mt-4 p-3 bg-light rounded">
+                        <div class="text-center mt-3">
+                            <p class="mb-0">Belum punya akun? <a href="{{ route('register') }}" class="text-decoration-none">Daftar di sini</a></p>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="p-3 bg-light rounded">
                             <small class="text-muted">
                                 <strong>Akun Demo:</strong><br>
                                 <strong>Admin:</strong> admin@perpus.com / admin123<br>

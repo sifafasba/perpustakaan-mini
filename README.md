@@ -29,12 +29,14 @@ Aplikasi web manajemen perpustakaan sederhana menggunakan Laravel dengan fitur p
 
 ### 👨‍💼 Fitur Admin
 - ✅ **Manajemen Buku** - CRUD (Create, Read, Update, Delete) buku
+- ✅ **Manajemen User** - CRUD user, atur role (admin/user), lihat detail & riwayat peminjaman
 - ✅ **Lihat Semua Transaksi** - Monitor seluruh aktivitas peminjaman
 - ✅ **Kelola Status Transaksi** - Update status peminjaman/pengembalian
 - ✅ **Dashboard Statistik** - Total buku, peminjaman, user, dll
-- ✅ **Filter & Pencarian** - Filter berdasarkan status, kategori, judul
+- ✅ **Filter & Pencarian** - Filter berdasarkan status, kategori, judul, role
 
 ### 👤 Fitur User
+- ✅ **Registrasi Akun** - Daftar akun baru tanpa perlu admin
 - ✅ **Lihat Daftar Buku** - Browse koleksi buku perpustakaan
 - ✅ **Pinjam Buku** - Maksimal 3 buku aktif per user
 - ✅ **Kembalikan Buku** - Return buku yang dipinjam
@@ -43,11 +45,12 @@ Aplikasi web manajemen perpustakaan sederhana menggunakan Laravel dengan fitur p
 - ✅ **Kelola Profil** - Update nama, email, dan password
 
 ### 🔐 Sistem Keamanan
-- ✅ **Autentikasi Laravel** - Login/Logout dengan session
+- ✅ **Autentikasi Laravel** - Login/Logout/Register dengan session
 - ✅ **Role-Based Access** - Admin & User memiliki akses berbeda
 - ✅ **Middleware Protection** - Route dilindungi middleware auth & admin
 - ✅ **Validasi Form** - Input validation untuk semua form
 - ✅ **CSRF Protection** - Token CSRF untuk keamanan
+- ✅ **Password Hashing** - Password di-hash dengan bcrypt
 
 ### 📊 Business Logic
 - ✅ **Auto Calculate** - Tanggal pinjam & batas kembali otomatis (7 hari)
@@ -148,7 +151,7 @@ mysql -u root -p
 Jalankan perintah SQL:
 
 ```sql
-CREATE DATABASE perpustakaan-mini;
+CREATE DATABASE perpustakaan_db;
 exit;
 ```
 
@@ -166,7 +169,7 @@ APP_URL=http://localhost:8000
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=perpustakaan-mini
+DB_DATABASE=perpustakaan_db
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -264,8 +267,11 @@ Role     : admin
 **Akses Admin:**
 - ✅ Semua fitur user
 - ✅ Tambah/Edit/Hapus buku
+- ✅ Tambah/Edit/Hapus user
+- ✅ Atur role user (admin/user)
 - ✅ Lihat semua transaksi
 - ✅ Update status transaksi
+- ✅ Lihat detail & riwayat peminjaman user
 - ✅ Dashboard statistik lengkap
 
 ---
@@ -285,11 +291,12 @@ Role     : user
 ```
 
 **Akses User:**
+- ✅ Registrasi akun sendiri
 - ✅ Lihat & cari buku
 - ✅ Pinjam buku (max 3 aktif)
 - ✅ Kembalikan buku
 - ✅ Lihat riwayat pribadi
-- ✅ Kelola profil
+- ✅ Kelola profil (nama, email, password)
 
 ---
 
@@ -398,6 +405,16 @@ php artisan serve --port=8001
 
 ## 📱 Dokumentasi Fitur
 
+### 🔐 Register (User Baru)
+1. Akses `http://localhost:8000/register`
+2. Isi form registrasi:
+   - Nama Lengkap
+   - Email (harus unique)
+   - Password (minimal 8 karakter)
+   - Konfirmasi Password
+3. Klik tombol **"Daftar"**
+4. Otomatis login dan masuk ke dashboard
+
 ### 🔐 Login
 1. Akses `http://localhost:8000`
 2. Masukkan email & password
@@ -406,6 +423,23 @@ php artisan serve --port=8001
 ### 📊 Dashboard
 - **Admin**: Lihat statistik total buku, peminjaman, user
 - **User**: Lihat jumlah peminjaman aktif & deadline terdekat
+
+### 👥 Manajemen User (Admin)
+1. Klik menu **"Kelola User"** (hanya muncul untuk admin)
+2. Fitur yang tersedia:
+   - **Lihat Daftar User** - List semua user dengan info role & peminjaman aktif
+   - **Tambah User** - Klik tombol "Tambah User", isi form (nama, email, password, role)
+   - **Edit User** - Klik icon pensil, ubah data user (nama, email, role, password opsional)
+   - **Hapus User** - Klik icon tempat sampah (tidak bisa hapus diri sendiri atau user dengan peminjaman aktif)
+   - **Detail User** - Klik icon mata untuk lihat info lengkap & riwayat peminjaman user
+   - **Search & Filter** - Cari berdasarkan nama/email, filter by role (admin/user)
+
+**Validasi Manajemen User:**
+- ✅ Email harus unique
+- ✅ Password minimal 8 karakter
+- ✅ Tidak bisa hapus diri sendiri
+- ✅ Tidak bisa hapus user yang punya peminjaman aktif
+- ✅ Role: admin atau user
 
 ### 📚 Manajemen Buku (Admin)
 1. Klik menu **"Daftar Buku"**
@@ -458,8 +492,7 @@ php artisan serve --port=8001
 2. Anda akan diarahkan ke halaman login
 
 ---
-
-## 🎯 Rules
+## 🎯 Business Rules
 
 ### Peminjaman Buku
 - ✅ Durasi peminjaman: **7 hari**
@@ -479,6 +512,15 @@ php artisan serve --port=8001
 - ✅ Stok otomatis berkurang saat buku dipinjam
 - ✅ Stok otomatis bertambah saat buku dikembalikan
 - ✅ Admin dapat update stok manual via edit buku
+
+---
+
+## 📞 Support & Bantuan
+
+### Dokumentasi Resmi
+- Laravel: https://laravel.com/docs
+- Bootstrap: https://getbootstrap.com/docs
+- MySQL: https://dev.mysql.com/doc/
 
 ### Command Berguna
 
@@ -505,9 +547,13 @@ php artisan db:seed
 php artisan optimize
 ```
 
+---
+
 ## 👨‍💻 Author
 
-**Nama**: Qorin Sifa Ekafasba, Moh. Atif Fauzan, Moh. Hasrul H.
-**NIM**: 2402310233, 2402310225, 2402310223
-**Kelas**: Informatika G24
+**Nama**: Qorin Sifa Ekafasba, Moh. Atif Fauzan, Moh. Hasrul H.  
+**NIM**: 2402310233, 2402310225, 2402310223  
+**Kelas**: Informatika G24  
 **Mata Kuliah**: Web Programming
+
+---

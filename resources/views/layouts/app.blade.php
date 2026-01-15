@@ -38,6 +38,13 @@
                                 <i class="bi bi-arrow-left-right"></i> Transaksi
                             </a>
                         </li>
+                        @if(Auth::user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                                <i class="bi bi-people"></i> Kelola User
+                            </a>
+                        </li>
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('profile') ? 'active' : '' }}" href="{{ route('profile') }}">
                                 <i class="bi bi-person"></i> Profil
